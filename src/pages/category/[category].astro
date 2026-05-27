@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { category: '90s-revival' },  props: { label: '90s Revival',  desc: 'Nostalgic looks, reimagined for now.' } },
+    { params: { category: 'tutorials' },     props: { label: 'Tutorials',    desc: 'Step-by-step guides for every look.' } },
+    { params: { category: 'reviews' },       props: { label: 'Reviews',      desc: 'Honest takes on the products worth knowing about.' } },
+    { params: { category: 'lip-trends' },    props: { label: 'Lip Trends',   desc: 'From frosted nudes to overlined mattes.' } },
+    { params: { category: 'eye-makeup' },    props: { label: 'Eye Makeup',   desc: 'Frosted lids, graphic liner and beyond.' } },
+    { params: { category: 'cool-tones' },    props: { label: 'Cool Tones',   desc: 'The lavender, mauve and icy blue world of cool-toned makeup.' } },
+  ];
+}
+
+const { category } = Astro.params;
+const { label, desc } = Astro.props;
+
+const allPostFiles = import.meta.glob('../blog/*.md', { eager: true });
+const allPosts = Object.values(allPostFiles) as any[];
+
+const slugToLabel: Record<string, string> = {
+  '90s-revival': '90s Revival',
+  'tutorials':   'Tutorials',
+  'reviews':     'Reviews',
+  'lip-trends':  'Lip Trends',
+  'eye-makeup':  'Eye Makeup',
+  'cool-tones':  'Cool Tones',
+};
+
+const categoryLabel = slugToLabel[category] ?? label;
+
+const posts = allPosts
+  .filter(p => (p.frontmatter.category ?? '').toLowerCase() === categoryLabel.toLowerCase())
+  .sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf());
+
+const pillClass = ['pill-purple', 'pill-blue', 'pill-pink'];
+---
+<BaseLayout title={`${label} | Raluca's Beauty Corner`}>
+
+  <div style="padding:52px 40px 0;text-align:center;border-bottom:1px solid var(--border);margin-bottom:0;">
+    <p style="font-size:9.5px;letter-spacing:0.3em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;font-weight:500;">✦ Category</p>
+    <h1 style="font-family:var(--ff-serif);font-size:48px;font-weight:300;color:var(--ink);margin-bottom:10px;">
+      <em style="font-style:italic;color:var(--purple);">{label}</em>
+    </h1>
+    <p style="font-size:13px;color:var(--ink-lt);letter-spacing:0.08em;padding-bottom:36px;font-weight:300;">{desc}</p>
+  </div>
+
+  {posts.length > 0 ? (
+    <div class="card-grid">
+      {posts.map((post, i) => (
+        <a href={post.url} class="article-card">
+          <span class={`card-pill ${pillClass[i % 3]}`}>{post.frontmatter.category || label}</span>
+          <h3>{post.frontmatter.title}</h3>
+          <p>{post.frontmatter.description}</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;">
+            <span class="card-read">Read more →</span>
+            <span style="font-size:10.5px;color:var(--ink-lt);">
+              {new Date(post.frontmatter.pubDate).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'})}
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  ) : (
+    <div style="text-align:center;padding:80px 40px;color:var(--ink-lt);">
+      <p style="font-family:var(--ff-serif);font-size:28px;font-weight:300;font-style:italic;margin-bottom:12px;">Coming soon...</p>
+      <p style="font-size:13px;font-weight:300;">No posts in this category yet — check back soon!</p>
+      <a href="/blog" style="display:inline-block;margin-top:24px;font-size:9.5px;letter-spacing:0.22em;text-transform:uppercase;color:var(--purple);border-bottom:1px solid var(--purple-lt);text-decoration:none;padding-bottom:3px;font-weight:500;">Browse all articles →</a>
+    </div>
+  )}
+
+</BaseLayout>

@@ -1,0 +1,32 @@
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/ralucas-beauty-corner
+  branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "src/pages/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "../../layouts/BlogPost.astro" }
+      - { label: "Title", name: "title", widget: "string", hint: "You can use <em>italic</em> tags for styling" }
+      - { label: "Description", name: "description", widget: "text", hint: "Short summary shown on the homepage cards" }
+      - { label: "Publish Date", name: "pubDate", widget: "datetime", format: "YYYY-MM-DD" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - "Lip Trends"
+          - "Eye Makeup"
+          - "Skin & Base"
+          - "Cool Tones"
+          - "90s Revival"
+          - "Tutorials"
+          - "Reviews"
+      - { label: "Minutes to Read", name: "minuteRead", widget: "number", default: 5, value_type: "int" }
+      - { label: "Body", name: "body", widget: "markdown" }

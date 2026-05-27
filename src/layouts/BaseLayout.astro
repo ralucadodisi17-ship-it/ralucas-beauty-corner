@@ -1,0 +1,79 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = "Raluca's Beauty Corner",
+  description = "A beauty blog about 90s makeup trends, frosted lips, cool-toned looks and more.",
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title}</title>
+  <link rel="stylesheet" href="/src/styles/global.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+
+  <div class="ticker">
+    <span class="ticker-inner">
+      <span>✦ Frosted lips forever</span>
+      <span>✦ Cool-toned blush is back</span>
+      <span>✦ Overlined lips: the 90s guide</span>
+      <span>✦ Iridescent everything</span>
+      <span>✦ Brown lipstick renaissance</span>
+      <span>✦ The perfect 90s no-makeup look</span>
+      <span>✦ Shimmer, not glitter</span>
+      <span>✦ Frosted lips forever</span>
+      <span>✦ Cool-toned blush is back</span>
+    </span>
+  </div>
+
+  <header class="site-header">
+    <p class="header-eyebrow">A beauty journal by Raluca</p>
+    <a href="/" class="site-logo">Raluca's <em>Beauty</em> Corner</a>
+    <p class="header-sub">Makeup Trends · 90s Revival · Tutorials · Reviews</p>
+  </header>
+
+  <nav class="site-nav">
+    <a href="/" aria-current={Astro.url.pathname === '/' ? 'page' : undefined}>Home</a>
+    <a href="/blog" aria-current={Astro.url.pathname.startsWith('/blog') ? 'page' : undefined}>All Articles</a>
+    <a href="/category/90s-revival">90s Revival</a>
+    <a href="/category/tutorials">Tutorials</a>
+    <a href="/category/reviews">Reviews</a>
+    <a href="/about">About</a>
+  </nav>
+
+  <main>
+    <slot />
+  </main>
+
+  <section class="newsletter">
+    <div>
+      <h2>Trends, straight <em>to your inbox</em></h2>
+      <p>No spam — just the beauty looks worth knowing about, written by Raluca.</p>
+    </div>
+    <form class="nl-form" name="newsletter" method="POST" data-netlify="true">
+      <input type="email" name="email" placeholder="your@email.com" required />
+      <button type="submit">Subscribe ✦</button>
+    </form>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-logo">Raluca's Beauty Corner</div>
+    <div class="footer-links">
+      <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://pinterest.com" target="_blank" rel="noopener">Pinterest</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+    </div>
+    <p class="footer-copy">© 2026 · Made with love &amp; lip gloss</p>
+  </footer>
+
+</body>
+</html>

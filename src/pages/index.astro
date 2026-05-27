@@ -1,11 +1,86 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const allPostFiles = import.meta.glob('./blog/*.md', { eager: true });
+const allPosts = Object.values(allPostFiles) as any[];
+const posts = allPosts
+  .sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf())
+  .slice(0, 6);
+
+const pillClass = ['pill-purple', 'pill-blue', 'pill-pink'];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout>
+
+  <!-- Hero -->
+  <section style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border);">
+    <div style="padding:52px 44px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--border);">
+      <p style="font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;">✦ Featured Article</p>
+      {posts[0] && (
+        <>
+          <h1 style="font-family:var(--ff-serif);font-size:42px;font-weight:300;line-height:1.18;color:var(--ink);margin-bottom:18px;" set:html={posts[0].frontmatter.title}></h1>
+          <p style="font-size:13px;color:var(--ink-mid);line-height:1.9;margin-bottom:28px;">{posts[0].frontmatter.description}</p>
+          <a href={posts[0].url} style="display:inline-block;font-size:9.5px;letter-spacing:0.22em;text-transform:uppercase;color:#fff;background:var(--purple);padding:11px 24px;text-decoration:none;width:fit-content;transition:background 0.2s;">
+            Read the full article →
+          </a>
+          <div style="display:flex;align-items:center;gap:14px;margin-top:30px;padding-top:20px;border-top:1px solid #ede4f8;">
+            <div style="width:34px;height:34px;border-radius:50%;background:var(--purple-lt);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--purple-dk);flex-shrink:0;">R</div>
+            <div>
+              <strong style="display:block;font-size:12px;font-weight:500;color:#5a4a7a;">Raluca</strong>
+              <span style="font-size:11px;color:var(--ink-lt);">
+                {new Date(posts[0].frontmatter.pubDate).toLocaleDateString('en-GB')}
+                      · {posts[0].frontmatter.minuteRead || 5} min read
+              </span>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+    <div style="background:linear-gradient(145deg,#ede0ff 0%,#d8eaf8 50%,#fce4f0 100%);display:flex;align-items:center;justify-content:center;min-height:400px;">
+      <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" style="width:80%;max-width:320px;">
+        <ellipse cx="310" cy="90" rx="130" ry="115" fill="#e8d8f8" opacity="0.55"/>
+        <ellipse cx="90" cy="310" rx="100" ry="95" fill="#cce0f5" opacity="0.5"/>
+        <ellipse cx="230" cy="255" rx="75" ry="73" fill="#ddd0f0"/>
+        <ellipse cx="230" cy="255" rx="64" ry="62" fill="#ede6fa"/>
+        <ellipse cx="230" cy="255" rx="50" ry="48" fill="#f5f0fd"/>
+        <ellipse cx="230" cy="247" rx="26" ry="19" fill="#d4c0ec" opacity="0.65"/>
+        <rect x="128" y="148" width="20" height="100" rx="10" fill="#c0a8e0"/>
+        <rect x="128" y="138" width="20" height="20" rx="6" fill="#a888d0"/>
+        <ellipse cx="138" cy="138" rx="9" ry="5" fill="#dccef5"/>
+        <rect x="160" y="172" width="7" height="65" rx="3" fill="#ede0f8"/>
+        <ellipse cx="163" cy="237" rx="8" ry="5.5" fill="#c9aae8" opacity="0.9"/>
+        <ellipse cx="140" cy="295" rx="30" ry="28" fill="#f8d0e8"/>
+        <ellipse cx="140" cy="295" rx="22" ry="20" fill="#fce4f0"/>
+        <ellipse cx="140" cy="291" rx="12" ry="9" fill="#f0a8cc" opacity="0.55"/>
+        <text x="308" y="148" font-size="20" fill="#c9b6e4">✦</text>
+        <text x="72" y="138" font-size="14" fill="#b8d4f0">✦</text>
+        <text x="338" y="308" font-size="12" fill="#f0b8d8">✦</text>
+        <text x="268" y="84" font-size="11" fill="#b8d4f0">✦</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Latest articles -->
+  <div class="section-label"><span>✦ Latest Articles</span></div>
+
+  <div class="card-grid">
+    {posts.slice(1).map((post, i) => (
+      <a href={post.url} class="article-card">
+        <span class={`card-pill ${pillClass[i % 3]}`}>{post.frontmatter.category || 'Beauty'}</span>
+        <h3>{post.frontmatter.title}</h3>
+        <p>{post.frontmatter.description}</p>
+        <span class="card-read">Read more →</span>
+      </a>
+    ))}
+  </div>
+
+  <!-- Stats band -->
+  <div class="stats-band">
+    <div class="stat"><div class="stat-num">{allPosts.length}</div><div class="stat-label">Articles</div></div>
+    <div class="stat"><div class="stat-num">12k</div><div class="stat-label">Readers / mo</div></div>
+    <div class="stat"><div class="stat-num">90s</div><div class="stat-label">At Heart</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Lip Glosses</div></div>
+  </div>
+
+</BaseLayout>

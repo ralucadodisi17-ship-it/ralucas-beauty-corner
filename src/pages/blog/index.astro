@@ -1,0 +1,36 @@
+---
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allPostFiles = import.meta.glob('./*.md', { eager: true });
+const allPosts = Object.values(allPostFiles) as any[];
+const posts = allPosts.sort(
+  (a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
+);
+const pillClass = ['pill-purple', 'pill-blue', 'pill-pink'];
+---
+
+<BaseLayout title="All Articles | Raluca's Beauty Corner">
+
+  <div style="padding:48px 40px 0;text-align:center;border-bottom:1px solid var(--border);margin-bottom:0;">
+    <h1 style="font-family:var(--ff-serif);font-size:44px;font-weight:300;color:var(--ink);">All <em style="font-style:italic;color:var(--purple);">Articles</em></h1>
+    <p style="font-size:12.5px;color:var(--ink-lt);letter-spacing:0.1em;margin-top:8px;padding-bottom:32px;">{posts.length} posts about beauty, trends &amp; the magic of the 90s</p>
+  </div>
+
+  <div class="card-grid">
+    {posts.map((post, i) => (
+      <a href={post.url} class="article-card">
+        <span class={`card-pill ${pillClass[i % 3]}`}>{post.frontmatter.category || 'Beauty'}</span>
+        <h3>{post.frontmatter.title}</h3>
+        <p>{post.frontmatter.description}</p>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;">
+          <span class="card-read">Read more →</span>
+          <span style="font-size:10.5px;color:var(--ink-lt);">
+            {new Date(post.frontmatter.pubDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}
+          </span>
+        </div>
+      </a>
+    ))}
+  </div>
+
+</BaseLayout>
