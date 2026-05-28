@@ -4,7 +4,7 @@ title: "The Frosted Lip: A 90s Icon, Reimagined"
 description: Pearl finishes, icy mauves, cool nudes with that unmistakable
   shimmer — the frosted lip defined a decade. Here's how to wear it now without
   a single yearbook flashback.
-pubDate: 2026-05-28
+pubDate: "2026-05-20"
 category: Lip Trends
 minuteRead: 5
 ---
