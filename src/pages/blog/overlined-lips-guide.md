@@ -2,7 +2,7 @@
 layout: ../../layouts/BlogPost.astro
 title: "Overlined Lips: The 90s Trick That Still Works"
 description: "Drew Barrymore did it. So did every teen magazine. Now it's back — and here's how to do it without looking dated."
-pubDate: "2026-05-10"
+pubDate: 2026-05-10
 category: "90s Revival"
 minuteRead: 4
 ---
