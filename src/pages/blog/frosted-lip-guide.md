@@ -1,13 +1,16 @@
 ---
 layout: ../../layouts/BlogPost.astro
 title: "The Frosted Lip: A 90s Icon, Reimagined"
-description: "Pearl finishes, icy mauves, cool nudes with that unmistakable shimmer — the frosted lip defined a decade. Here's how to wear it now without a single yearbook flashback."
-pubDate: "2026-05-20"
-category: "Lip Trends"
+description: Pearl finishes, icy mauves, cool nudes with that unmistakable
+  shimmer — the frosted lip defined a decade. Here's how to wear it now without
+  a single yearbook flashback.
+pubDate: 2026-05-20
+category: Lip Trends
 minuteRead: 5
 ---
-
 If there's one makeup look that instantly transports me back to flipping through teen magazines, it's the frosted lip. That icy, pearlescent sheen — somewhere between a nude and a shimmer — was *everywhere* in the 90s. And honestly? It deserved to be.
+
+![](/images/58c8be57bf8969f9058711263468a59e.jpg)
 
 ## What made the frosted lip so iconic
 
@@ -22,9 +25,10 @@ The key difference between then and now is formula. 90s frosts were often chalky
 > Start with a cool-toned nude base — something with a faint pink or mauve undertone. Then press a pearlescent topper over the centre of the lip only.
 
 Products to look for:
-- A satin lipstick in dusty rose or cool beige as your base
-- A separate shimmer topper (or a highlighter pencil works brilliantly)
-- Clear gloss with silver micro-shimmer for the full 90s effect
+
+* A satin lipstick in dusty rose or cool beige as your base
+* A separate shimmer topper (or a highlighter pencil works brilliantly)
+* Clear gloss with silver micro-shimmer for the full 90s effect
 
 ## The liner question
 
