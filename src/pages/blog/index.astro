@@ -1,5 +1,4 @@
 ---
-
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const allPostFiles = import.meta.glob('./*.md', { eager: true });
@@ -9,7 +8,6 @@ const posts = allPosts.sort(
 );
 const pillClass = ['pill-purple', 'pill-blue', 'pill-pink'];
 ---
-
 <BaseLayout title="All Articles | Raluca's Beauty Corner">
 
   <div style="padding:48px 40px 0;text-align:center;border-bottom:1px solid var(--border);margin-bottom:0;">

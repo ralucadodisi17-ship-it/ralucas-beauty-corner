@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const allPosts = await Astro.glob('./blog/*.md');
+const allPostFiles = import.meta.glob('./blog/*.md', { eager: true });
+const allPosts = Object.values(allPostFiles) as any[];
 const posts = allPosts
   .sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf())
   .slice(0, 6);
@@ -16,7 +17,7 @@ const pillClass = ['pill-purple', 'pill-blue', 'pill-pink'];
       <p style="font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;">✦ Featured Article</p>
       {posts[0] && (
         <>
-          <h1 style="font-family:var(--ff-serif);font-size:42px;font-weight:300;line-height:1.18;color:var(--ink);margin-bottom:18px;" set:html={posts[0].frontmatter.title} />
+          <h1 style="font-family:var(--ff-serif);font-size:42px;font-weight:300;line-height:1.18;color:var(--ink);margin-bottom:18px;" set:html={posts[0].frontmatter.title}></h1>
           <p style="font-size:13px;color:var(--ink-mid);line-height:1.9;margin-bottom:28px;">{posts[0].frontmatter.description}</p>
           <a href={posts[0].url} style="display:inline-block;font-size:9.5px;letter-spacing:0.22em;text-transform:uppercase;color:#fff;background:var(--purple);padding:11px 24px;text-decoration:none;width:fit-content;transition:background 0.2s;">
             Read the full article →
@@ -26,7 +27,7 @@ const pillClass = ['pill-purple', 'pill-blue', 'pill-pink'];
             <div>
               <strong style="display:block;font-size:12px;font-weight:500;color:#5a4a7a;">Raluca</strong>
               <span style="font-size:11px;color:var(--ink-lt);">
-                {new Date(posts[0].frontmatter.pubDate).toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'})}
+                {new Date(posts[0].frontmatter.pubDate).toLocaleDateString('en-GB')}
                 · {posts[0].frontmatter.minuteRead || 5} min read
               </span>
             </div>
