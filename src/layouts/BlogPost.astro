@@ -4,18 +4,25 @@ import BaseLayout from './BaseLayout.astro';
 export interface Props {
   title: string;
   description?: string;
-  pubDate: string;
+  pubDate?: string;
   category?: string;
   minuteRead?: number;
 }
 
 const { title, description, pubDate, category = 'Beauty', minuteRead = 5 } = Astro.props;
 
-const cleanDate = pubDate.toString().split('T')[0].split(' ')[0];
-const [y, m, d] = cleanDate.split('-').map(Number);
-const formattedDate = new Date(y, m - 1, d).toLocaleDateString('en-GB', {
-  day: 'numeric', month: 'long', year: 'numeric'
-});
+let formattedDate = 'Date unknown';
+if (pubDate) {
+  try {
+    const clean = String(pubDate).split('T')[0].split(' ')[0];
+    const [y, m, d] = clean.split('-').map(Number);
+    formattedDate = new Date(y, m - 1, d).toLocaleDateString('en-GB', {
+      day: 'numeric', month: 'long', year: 'numeric'
+    });
+  } catch (e) {
+    formattedDate = String(pubDate);
+  }
+}
 ---
 <BaseLayout title={`${title} | Raluca's Beauty Corner`} description={description}>
 
