@@ -10,7 +10,7 @@ minuteRead: 5
 ---
 If there's one makeup look that instantly transports me back to flipping through teen magazines, it's the frosted lip. That icy, pearlescent sheen — somewhere between a nude and a shimmer — was *everywhere* in the 90s. And honestly? It deserved to be.
 
-<img src="/images/2c5a2f627fd1909aa75ac991ef824524.jpg" style="float:right; margin: 0 0 16px 24px; width:280px;" />
+<img src="/images/58c8be57bf8969f9058711263468a59e.jpg" style="float:right; margin: 0 0 16px 24px; width:280px;" />
 
 ## What made the frosted lip so iconic
 
