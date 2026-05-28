@@ -11,7 +11,9 @@ export interface Props {
 
 const { title, description, pubDate, category = 'Beauty', minuteRead = 5 } = Astro.props;
 
-const formattedDate = new Date(pubDate + 'T00:00:00').toLocaleDateString('en-GB', {
+const cleanDate = pubDate.toString().split('T')[0].split(' ')[0];
+const [y, m, d] = cleanDate.split('-').map(Number);
+const formattedDate = new Date(y, m - 1, d).toLocaleDateString('en-GB', {
   day: 'numeric', month: 'long', year: 'numeric'
 });
 ---
